@@ -1,22 +1,27 @@
 import React from 'react';
 import './App.scss';
 
+interface IQuote {
+  text: string;
+  author: string;
+}
+
 const url = 'https://type.fit/api/quotes';
 
 function App() {
-  const [quotes, setQuotes] = React.useState([]);
-  const [quote, setQuote] = React.useState({})
+  const [quotes, setQuotes] = React.useState<IQuote[]>([]);
+  const [quote, setQuote] = React.useState<IQuote>({ text: '', author: '' });
 
   const loadQuotes = React.useCallback(async () => {
     const response = await fetch(url);
-    const data = await response.json();
+    const data: IQuote[] = await response.json();
     setQuotes(data);
-    setQuote(data[Math.floor(Math.random()*data.length)]);
-  }, [])
+    setQuote(data[Math.floor(Math.random() * data.length)]);
+  }, []);
 
   const getRandomQuote = React.useCallback(() => {
-    setQuote(quotes[Math.floor(Math.random()*quotes.length)])
-  }, [quotes])
+    setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, [quotes]);
 
   React.useEffect(() => {
     loadQuotes();
@@ -34,14 +39,21 @@ function App() {
         </div>
         <div className="buttons">
           <a
-            href={encodeURI(`https://twitter.com/intent/tweet?hashtags=quotes&text="${quote.text}" - ${quote.author}`)}
+            href={encodeURI(
+              `https://twitter.com/intent/tweet?hashtags=quotes&text="${quote.text}" - ${quote.author}`,
+            )}
             className="button"
             id="tweet-quote"
             title="Tweet this quote!"
             target="_top">
             <i className="fa fa-twitter"></i>
           </a>
-          <button onClick={() => {getRandomQuote()}} className="button" id="new-quote">
+          <button
+            onClick={() => {
+              getRandomQuote();
+            }}
+            className="button"
+            id="new-quote">
             New quote
           </button>
         </div>
