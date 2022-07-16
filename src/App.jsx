@@ -11,7 +11,7 @@ function App() {
     const response = await fetch(url);
     const data = await response.json();
     setQuotes(data);
-    setQuote(data[0]);
+    setQuote(data[Math.floor(Math.random()*data.length)]);
   }, [])
 
   const getRandomQuote = React.useCallback(() => {
@@ -34,7 +34,7 @@ function App() {
         </div>
         <div className="buttons">
           <a
-            href={encodeURI(`https://twitter.com/intent/tweet?hashtags=quotes&text=${'"' + quote.text + '"' + ' - ' + quote.author}`)}
+            href={encodeURI(`https://twitter.com/intent/tweet?hashtags=quotes&text="${quote.text}" - ${quote.author}`)}
             className="button"
             id="tweet-quote"
             title="Tweet this quote!"
