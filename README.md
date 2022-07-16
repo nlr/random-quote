@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Random quotes
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Demo](https://random-quotes-nlr.herokuapp.com/)
 
 ## Available Scripts
 
